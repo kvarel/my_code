@@ -4,7 +4,6 @@ class Node:
         self.key = key
         self.r = None
         self.l = None
-        self.p = None
         self.h = 1
         
     def __repr__(self):
@@ -26,7 +25,14 @@ class Rope:
                 return Rope.find(number, node.l)
         else:
             return node if number < node.h else Rope.find(number-1, node.r)
-    
-            
-                
-    
+        
+    def h_update(self, node):
+        node.h = max((node.l.h, node.r.h)) + 1
+        
+    def add(self, key, node):
+        if node is None:
+            return Node(key)
+        if node.r:
+            node.r = Rope.add(key, node.r)
+            return h_update(node)
+        
