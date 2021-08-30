@@ -42,20 +42,21 @@ class Rope:
         else:
             node.r = Rope.add(key, node.r)
             Rope.h_update(node)
-            return node
+            return Rope.balans(node)
 
     @staticmethod
     def balans_l(node):
         top = node.r
         node.r = top.l
         top.l = node
+        return top
 
     @staticmethod
     def balans_r(node):
         top = node.l
         node.l = top.r
         top.r = node
-        node = top
+        return top
 
     @staticmethod
     def big_balans_l(node):
@@ -64,6 +65,7 @@ class Rope:
         top.r = node.r
         node.r = top.l
         top.l = node
+        return top
 
     @staticmethod
     def big_balans_r(node):
@@ -72,5 +74,35 @@ class Rope:
         top.l = node.l
         node.l = top.r
         top.r = node
+        return top
+    
+    @staticmethod
+    def balans(node):
+        if Rope.h(node.r) - Rope.h(node.l) > 1:
+            if Rope.h(node.r.r) > Rope.h(node.r.l):
+                node = balans_l(node)
+                Rope.h_update(node.r)
+                Rope.h_update(node)
+                return node
+            else:
+                node = big_balans_l(node)
+                Rope.h_update(node.r)
+                Rope.h_update(node.l)
+                Rope.h_update(node)
+                return node
+        elif Rope.h(node.l) - Rope.h(node.r) > 1:
+            if Rope.h(node.l.l) > Rope.h(node.l.r):
+                node = balans_r(node)
+                Rope.h_update(node.r)
+                Rope.h_update(node)
+                return node
+            else:
+                node = big_balans_r(node)
+                Rope.h_update(node.r)
+                Rope.h_update(node.l)
+                Rope.h_update(node)
+                return node
+        else:
+            return node
 
 node = Node(7)
