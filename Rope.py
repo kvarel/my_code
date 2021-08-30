@@ -78,7 +78,7 @@ class Rope:
     
     @staticmethod
     def balans(node):
-        if Rope.h(node.r) - Rope.h(node.l) > 1:
+        while Rope.h(node.r) - Rope.h(node.l) > 1:
             if Rope.h(node.r.r) > Rope.h(node.r.l):
                 node = balans_l(node)
                 Rope.h_update(node.r)
@@ -90,7 +90,7 @@ class Rope:
                 Rope.h_update(node.l)
                 Rope.h_update(node)
                 return node
-        elif Rope.h(node.l) - Rope.h(node.r) > 1:
+        while Rope.h(node.l) - Rope.h(node.r) > 1:
             if Rope.h(node.l.l) > Rope.h(node.l.r):
                 node = balans_r(node)
                 Rope.h_update(node.r)
@@ -104,5 +104,26 @@ class Rope:
                 return node
         else:
             return node
+        
+    @staticmethod
+    def split(number, node):
+        if node == None:
+            return None
+        if number == node.h+1:
+            v1 = node.l
+            node.l = None
+            return (v1, node)
+        if number > node.l.h:
+            v2 = node.r
+            node.r = None
+            return(node, Rope.split(number-Rope.h(node.l)-1, v2))
+        if number < node.l.h
+            
+            
+            
+    @staticmethod
+    def merge(v1, v2):
+        
+        
 
 node = Node(7)
