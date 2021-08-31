@@ -7,7 +7,7 @@ class Node:
         self.h = 1
 
     def __str__(self):
-        return f'[key {self.key} | r {self.r} | l {self.l} | h {self.h}]'
+        return f'[[[key {self.key} | l {self.l} | r {self.r} | h {self.h}]]]'
 
 class Rope:
 
@@ -80,24 +80,24 @@ class Rope:
     def balans(node):
         while Rope.h(node.r) - Rope.h(node.l) > 1:
             if Rope.h(node.r.r) > Rope.h(node.r.l):
-                node = balans_l(node)
-                Rope.h_update(node.r)
+                node = Rope.balans_l(node)
+                Rope.h_update(node.l)
                 Rope.h_update(node)
                 return node
             else:
-                node = big_balans_l(node)
+                node = Rope.big_balans_l(node)
                 Rope.h_update(node.r)
                 Rope.h_update(node.l)
                 Rope.h_update(node)
                 return node
         while Rope.h(node.l) - Rope.h(node.r) > 1:
             if Rope.h(node.l.l) > Rope.h(node.l.r):
-                node = balans_r(node)
+                node = Rope.balans_r(node)
                 Rope.h_update(node.r)
                 Rope.h_update(node)
                 return node
             else:
-                node = big_balans_r(node)
+                node = Rope.big_balans_r(node)
                 Rope.h_update(node.r)
                 Rope.h_update(node.l)
                 Rope.h_update(node)
@@ -117,13 +117,20 @@ class Rope:
             v2 = node.r
             node.r = None
             return(node, Rope.split(number-Rope.h(node.l)-1, v2))
-        if number < node.l.h
+        if number < node.l.h:
+            pass
             
             
             
     @staticmethod
     def merge(v1, v2):
+        pass
         
         
 
 node = Node(7)
+node = Rope.add(10, node)
+node = Rope.add(15, node)
+node = Rope.add(20, node)
+node = Rope.add(25, node)
+print(node)
