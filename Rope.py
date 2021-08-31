@@ -28,8 +28,9 @@ class Rope:
             return node if number < node.h else Rope.find(number - 1, node.r)
 
     @staticmethod
-    def h_update(node):
-        node.h = max([Rope.h(node.l), Rope.h(node.r)]) + 1
+    def h_update(*nodes):
+        for node in nodes:
+            node.h = max([Rope.h(node.l), Rope.h(node.r)]) + 1
 
     @staticmethod
     def h(node):
@@ -81,26 +82,20 @@ class Rope:
         while Rope.h(node.r) - Rope.h(node.l) > 1:
             if Rope.h(node.r.r) > Rope.h(node.r.l):
                 node = Rope.balans_l(node)
-                Rope.h_update(node.l)
-                Rope.h_update(node)
+                Rope.h_update(node.l, node)
                 return node
             else:
                 node = Rope.big_balans_l(node)
-                Rope.h_update(node.r)
-                Rope.h_update(node.l)
-                Rope.h_update(node)
+                Rope.h_update(node.r, node.l, node)
                 return node
         while Rope.h(node.l) - Rope.h(node.r) > 1:
             if Rope.h(node.l.l) > Rope.h(node.l.r):
                 node = Rope.balans_r(node)
-                Rope.h_update(node.r)
-                Rope.h_update(node)
+                Rope.h_update(node.r, node)
                 return node
             else:
                 node = Rope.big_balans_r(node)
-                Rope.h_update(node.r)
-                Rope.h_update(node.l)
-                Rope.h_update(node)
+                Rope.h_update(node.r, node.l, node)
                 return node
         else:
             return node
@@ -114,11 +109,15 @@ class Rope:
             node.l = None
             return (v1, node)
         if number > node.l.h:
-            v2 = node.r
+            v = node.r
+            merge(v, v2)
             node.r = None
-            return(node, Rope.split(number-Rope.h(node.l)-1, v2))
+            return (node, Rope.split(number-Rope.h(node.l)-1))
         if number < node.l.h:
-            pass
+            v = node.l
+            merge(v, v1)
+            node.l = None
+            return (node, Rope.split(number-Rope.h(node.r)-1))
             
             
             
