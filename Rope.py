@@ -180,6 +180,7 @@ class Rope:
             v3 = Rope.merge(v3, v5)
             node = Rope.merge(v1,v3)
             return node
+        
     @staticmethod
     def rez(node):
         if node is None:
