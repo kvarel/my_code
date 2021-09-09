@@ -21,7 +21,6 @@ def down(x):
         k[x], k[pos] = k[pos], k[x]
         down(pos)
 def main():
-    k = []
     n = int(input())
     for i in range(n):
         zapros = input().split()
@@ -30,5 +29,6 @@ def main():
         elif len(zapros) == 1:
             extract_max()
 if __name__ == '__main__':
+    K = []
     main()
             
