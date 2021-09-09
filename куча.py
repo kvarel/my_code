@@ -29,6 +29,6 @@ def main():
         elif len(zapros) == 1:
             extract_max()
 if __name__ == '__main__':
-    K = []
+    k = []
     main()
             
