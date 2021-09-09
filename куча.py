@@ -12,7 +12,7 @@ def up(x):
 def extract_max():
     k[0], k[-1] = k[-1], k[0]
     print(k.pop())
-    down(0)
+    if k: down(0)
 def down(x):
     m, pos = k[x], x
     if x*2+1 < len(k) and k[x*2+1] > m: m, pos = k[x*2+1], x*2+1
@@ -31,4 +31,3 @@ def main():
 if __name__ == '__main__':
     k = []
     main()
-            
