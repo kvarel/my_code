@@ -23,10 +23,10 @@ def main(string):
             break
         i += 1
     while len(stack) > 3:
-        x = int(stack.pop())
-        y = stack.pop()
-        z = int(stack.pop())
-        stack.append(z+x if y == '+' else z-x)
+        x = int(stack.pop(2))
+        y = stack.pop(2)
+        z = int(stack.pop(2))
+        stack.insert(2, z+x if y == '+' else x-z)
     return(stack[2])
 
 
