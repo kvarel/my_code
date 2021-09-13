@@ -17,7 +17,7 @@ def main(string):
                 y = stack.pop()
                 x = stack.pop()
                 stack.append(x*z if y=='*' else x/z)
-            else: stack.append(int(string[i]))
+            else: stack.append(z)
         elif string[i] == ')':
             i += 1
             break
