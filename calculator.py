@@ -8,8 +8,10 @@ def main(string):
                 x = stack.pop()
                 stack.append(x*int(string[i]) if y=='*' else x/int(string[i]))
             else: stack.append(int(string[i]))
+            i += 1
         elif string[i] in '+-*/':
             stack.append(string[i])
+            i += 1
         elif string[i] == '(':
             i += 1
             z = main(string)
@@ -21,7 +23,6 @@ def main(string):
         elif string[i] == ')':
             i += 1
             break
-        i += 1
     while len(stack) > 3:
         x = int(stack.pop(2))
         y = stack.pop(2)
