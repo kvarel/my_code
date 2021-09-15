@@ -5,26 +5,33 @@
 def main():
     n = int(input())
     s = [[0 for j in range(n)] for i in range(n)]
-    i, j, t, flag = 0, 0, 0, False
+    i, j, t, k, flag = 0, 0, 0, 0, False
     road = ((0, 1), (1, 0), (0, -1), (-1, 0))
     while True:
         if 0 <= i + road[t][0] * 2 < n and 0 <= j + road[t][1] * 2 < n:
             if s[i + road[t][0] * 2][j + road[t][1] * 2] == 0:
                 s[i][j] = 1
+                k += 1
                 i, j = i + road[t][0], j + road[t][1]
                 flag = False
             else:
                 s[i][j] = 1
+                k += 1
                 if not flag:
                     t = (t+1) % 4
+                    if k != 2: k = 0
+                    else: break
                 else:
                     break
                 flag = True
         elif (t in [0,2] and (j + road[t][1] * 2 in [-1, n])) or (t in [1,3] and (i + road[t][0] * 2 in [n, 0] )):
             s[i][j] = 1
+            k += 1
             i, j = i + road[t][0], j + road[t][1]
             if not flag:
                 t = (t+1) % 4
+                if k != 2: k = 0
+                else: break
             else:
                 break
             flag = True
