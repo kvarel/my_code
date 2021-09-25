@@ -11,12 +11,19 @@ def quick_sort(x):
         elif x[i] > x[0]: r.append(x[i])
     return quick_sort(l) + c + quick_sort(r)
         
-def search_ind(x, i, l, r):
+def search_r(x, i, l, r):
     if l < r:
         m = (r + l) // 2
-        if x[m] >= i: return search_ind(x, i, l, m-1)
-        else: return search_ind(x, i, m+1, r)
+        if x[m] >= i: return search_r(x, i, l, m-1)
+        else: return search_r(x, i, m+1, r)
     return l if x[l] >= i else l + 1
+    
+def search_l(x, i, l, r):
+    if l < r:
+        m = (r + l) // 2
+        if x[m] >= i: return search_l(x, i, l, m-1)
+        else: return search_l(x, i, m+1, r)
+    return l-1 if x[l] > i else l
     
 def main():
     l, r = [], []
@@ -29,9 +36,9 @@ def main():
     l = quick_sort(l)
     r = quick_sort(r)
     for dot in dots:
-        x = search_ind(l, dot, 0, len(l)-1)
-        y = search_ind(r, dot, 0, len(l)-1)
-        print(x - y, end= ' ')
+        x = search_l(l, dot, 0, len(l)-1)
+        y = search_r(r, dot, 0, len(l)-1)
+        print(x - y + 1, end= ' ')
 
 if __name__ == '__main__':
     main()
